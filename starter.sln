@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "starter", "starter\starter.csproj", "{9D7D6B27-8656-49D6-A012-DD2C5C1BA44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timers", "timers\timers.csproj", "{D66453D1-C332-4697-BEA3-B61B4684C890}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D7D6B27-8656-49D6-A012-DD2C5C1BA44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D7D6B27-8656-49D6-A012-DD2C5C1BA44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D7D6B27-8656-49D6-A012-DD2C5C1BA44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D7D6B27-8656-49D6-A012-DD2C5C1BA44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66453D1-C332-4697-BEA3-B61B4684C890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66453D1-C332-4697-BEA3-B61B4684C890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66453D1-C332-4697-BEA3-B61B4684C890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66453D1-C332-4697-BEA3-B61B4684C890}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A454F27C-4A43-40EC-A546-4BD32C90D3CE}
+	EndGlobalSection
+EndGlobal
