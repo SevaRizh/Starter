@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:starter"
         mc:Ignorable="d"
-        Title="Запускатор" Height="285" Width="250" ResizeMode="NoResize">
+        Title="Запускатор" Height="285" Width="250" ResizeMode="CanMinimize"
+        ShowInTaskbar="True" WindowStartupLocation="CenterOwner">
 
     <Grid>
         
@@ -16,12 +17,12 @@
 
         <TextBox x:Name="tb_start_1" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время старта в часах" />
         <TextBox x:Name="tb_stop_1" HorizontalAlignment="Left" Height="23" Margin="124,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время стоп в часах" />
-        <TextBox x:Name="tb_start_2" HorizontalAlignment="Left" Height="23" Margin="10,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время старта в часах" />
-        <TextBox x:Name="tb_stop_2" HorizontalAlignment="Left" Height="23" Margin="124,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время стоп в часах" />
-        <TextBox x:Name="tb_start_3" HorizontalAlignment="Left" Height="23" Margin="10,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время старта в часах" />
-        <TextBox x:Name="tb_stop_3" HorizontalAlignment="Left" Height="23" Margin="124,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время стоп в часах" />
-        <Label x:Name="label_status_browser" Content="фаил не выбран" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="214" HorizontalContentAlignment="Center" Foreground="Red"/>
-        <Label x:Name="label_status_timer" Content="процесс выключен" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="214" HorizontalContentAlignment="Center" Foreground="Red"/>
+        <TextBox x:Name="tb_start_2" HorizontalAlignment="Left" Height="23" Margin="10,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время старта в часах" />
+        <TextBox x:Name="tb_stop_2" HorizontalAlignment="Left" Height="23" Margin="124,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время стоп в часах" />
+        <TextBox x:Name="tb_start_3" HorizontalAlignment="Left" Height="23" Margin="10,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время старта в часах" />
+        <TextBox x:Name="tb_stop_3" HorizontalAlignment="Left" Height="23" Margin="124,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center" ToolTip="введите время стоп в часах" />
+        <Label x:Name="label_status_browser" Content="фаил не выбран" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="214" HorizontalContentAlignment="Center" Foreground="Red"/>
+<!--        <Label x:Name="label_status_timer" Content="процесс выключен" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="214" HorizontalContentAlignment="Center" Foreground="Red" /> -->
 
     </Grid>
     

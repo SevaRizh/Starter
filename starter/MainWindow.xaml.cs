@@ -16,7 +16,6 @@ using System.Diagnostics;
 using Microsoft.Win32;
 using System.Timers;
 using System.IO;
-//using System.Timers;
 
 namespace starter
 {
@@ -31,29 +30,31 @@ namespace starter
         private int[] arrayStartTime = new int[3];      // массив стартовых временных точек
         private int[] arrayStopTime = new int[3];       // массив остановочных временных точек
         private Random rnd = new Random();              // рандомная составляющая срабатывания таймера
-        private int intVal = 1200000;                   // глобальная величина срабатывания таймер 20 мин
+        private const int intVal = 1200000;             // глобальная величина срабатывания таймер 20 мин
         Timer timer = new Timer();                      // создание таймера Timers.Timer()
-        
+        private const string path = "LocalLog.log";
+
 
         public MainWindow()
         {
             InitializeComponent();
 
-            timer.Interval = intVal;
+            timer.Interval = 20000;
             timer.Elapsed += CheckTime;
         }
 
+        #region событие происходящее по тику таймера
+
         private void CheckTime(object sender, EventArgs e)
         {
-            timer.Interval = intVal + rnd.Next(-500000, 500000);
+            timer.Interval = intVal + rnd.Next(intVal / 3 * -1, intVal / 3);
             int timeHour = DateTime.Now.Hour;
 
             if ((arrayStartTime[0] <= timeHour && timeHour < arrayStopTime[0] && !IsRunng(p)) ||
                 (arrayStartTime[1] <= timeHour && timeHour < arrayStopTime[1] && !IsRunng(p)) ||
                 (arrayStartTime[2] <= timeHour && timeHour < arrayStopTime[2] && !IsRunng(p)))
             {
-                string tm = string.Format("запуск в {0}\r\n", DateTime.Now);
-                File.AppendAllText("C:\\TimeTest.txt", tm);
+                LocalLogger("CheckTime: приложение запущено");
 
                 StartProc();
             }
@@ -61,22 +62,23 @@ namespace starter
                      (arrayStopTime[0] <= timeHour && timeHour < arrayStartTime[1] && IsRunng(p)) ||
                      (arrayStopTime[1] <= timeHour && timeHour < arrayStartTime[2] && IsRunng(p)))
             {
-                string tm = string.Format("остановка в {0}\r\n", DateTime.Now);
-                File.AppendAllText("C:\\TimeTest.txt", tm);
+                LocalLogger("CheckTime: приложение остановлено");
 
                 StopProc();
             }
         }
 
-        #region инициализация (включить фильтр)
+        #endregion
+
+        #region инициализация файла (включить фильтр)
 
         public Process Initializing()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             //            ofd.Filter = "Файл exe|*.exe";
 
-            //проверка выбран ли фаил и изменения видимости кнопок 
-            //и цвета подписи с указанием выбранного файла
+            // проверка выбран ли фаил и изменения видимости кнопок 
+            // и цвета подписи с указанием выбранного файла
             if (ofd.ShowDialog() == true)
             {
                 p.StartInfo.FileName = ofd.FileName;
@@ -87,10 +89,14 @@ namespace starter
                 label_status_browser.Foreground = Brushes.Green;
             }
 
+            LocalLogger("Initializing: инициализация прошла успешно");
+
             return p;
         }
 
         #endregion
+
+        #region старт/стоп процесса
 
         public void StartProc()
         {
@@ -99,8 +105,13 @@ namespace starter
 
         public void StopProc()
         {
-            p.CloseMainWindow();
+            if (IsRunng(p))
+            {
+                p.CloseMainWindow(); 
+            }
         }
+
+        #endregion
 
         #region проверка на существование процесса
 
@@ -114,47 +125,47 @@ namespace starter
 
         #endregion
 
+        #region обработка кнопки "старт/стоп"
+
         private void Click_btn_StartStop(object sender, RoutedEventArgs e)
         {
-            //Если выбранный фаил не имеет процесса - его запустить, иначе останавить
-            if (!IsRunng(p))
+            // Если выбранный фаил не имеет процесса И глобальный флаг true
+            if (!IsRunng(p) && indStart)
             {
-                // обработка чисел для старта/остановки процесса
-                if (indStart)
-                {
-                    CompareTime();
-                    indStart = false;
-                }
-
+                CompareTime();
+                indStart = false;
+                StartProc();
                 btn_start_stop.Content = "Стоп";
-
-                label_status_timer.Content = "приложение включено";
-                label_status_timer.Foreground = Brushes.Green;
-
                 timer.Start();
-            }
-            else
-            {
-                if (!indStart)
-                {
-                    indStart = true;
-                }
 
+                LocalLogger("btn_Start: запуск успешен");
+            }
+                  // Если выбранный фаил имеет процесс и глобальный флаг false
+            else //  if(IsRunng(p) && !indStart)
+            {
+                indStart = true;
                 StopProc();
                 btn_start_stop.Content = "Старт";
-
-                label_status_timer.Content = "приложение выключено";
-                label_status_timer.Foreground = Brushes.Red;
-
                 timer.Stop();
+
+                LocalLogger("btn_Stop: остановка успешна");
             }
         }
+
+        #endregion
+
+        #region обработка кнопки "выбор"
 
         private void Click_btn_Browser(object sender, RoutedEventArgs e)
         {
             p = Initializing();
         }
 
+        #endregion
+
+        #region обработка времён
+
+        // обработка чисел для старта/остановки процесса
         private void CompareTime()
         {
             arrayStartTime = new int[] { ParseTime(tb_start_1.Text),
@@ -177,7 +188,11 @@ namespace starter
                     arrayStopTime[i] = 99;
                 }
             }
+
+            LocalLogger("CompareTime: обработка времён пройдена");
         }
+
+        #endregion
 
         #region парсинг TextBox'a
 
@@ -202,6 +217,14 @@ namespace starter
         }
 
         #endregion
+
+        private void LocalLogger(string str)
+        {
+            using (StreamWriter logger = new StreamWriter(path, true))
+            {
+                logger.WriteLine(DateTime.Now + " " + str);
+            }
+        }
 
     }
 }
